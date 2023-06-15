@@ -1,0 +1,27 @@
+.page-container {
+  max-width: 980px;
+  /* выше установили ограничение по максимальной ширине */
+  margin: 0 auto;
+  /* выше отцентрировали весь контент */
+
+  font-family: "Inter", "Arial", sans-serif;
+  box-sizing: border-box;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+@media screen and (max-width: 700px) {
+  .page-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .page-container {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+}
