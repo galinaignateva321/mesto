@@ -8,4 +8,16 @@
   background-image: url(../../../images/editbutton.svg);
   background-repeat: no-repeat;
   background-position: center;
+  transition: opacity 0.4s ease;
+}
+
+.profile__edit-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 425px) {
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+  }
 }

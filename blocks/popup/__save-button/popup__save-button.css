@@ -11,4 +11,17 @@
   align-items: center;
   justify-content: center;
   border-radius: 2px;
+  margin: 48px auto 37px;
+  transition: opacity 0.4s ease;
+}
+
+.popup__save-button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 700px) {
+  .popup__save-button {
+    width: 238px;
+    height: 46px;
+  }
 }

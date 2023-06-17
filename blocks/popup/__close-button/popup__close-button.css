@@ -3,12 +3,28 @@
   display: block;
   width: 32px;
   height: 32px;
-  top: -40px;
-  right: -40px;
+  top: -8px;
+  right: -8px;
+  transform: translateX(100%) translateY(-100%);
   border: 0;
   background-color: transparent;
   cursor: pointer;
   background-image: url(../../../images/closeicon.svg);
   background-size: contain;
   padding: 0;
+  transition: opacity 0.4s ease;
+}
+
+.popup__close-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 700px) {
+  .popup__close-button {
+    width: 20px;
+    height: 20px;
+    top: -16px;
+    right: 0;
+    transform: translateY(-100%);
+  }
 }

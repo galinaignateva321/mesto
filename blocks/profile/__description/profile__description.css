@@ -16,6 +16,7 @@
   .profile__description {
     align-items: center;
     flex-basis: 0;
-    row-gap: 14px;
+    row-gap: 7px;
+    max-width: 190px;
   }
 }

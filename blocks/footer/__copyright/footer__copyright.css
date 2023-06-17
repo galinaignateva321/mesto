@@ -1,17 +1,16 @@
-.popup__save-button-text {
+.footer__copyright {
   font-family: "Inter", "Arial", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  text-align: center;
-  color: #ffffff;
-  padding: 0;
+  color: #545454;
   margin: 0;
+  padding: 0;
 }
 
-@media screen and (max-width: 700px) {
-  .popup__save-button-text {
+@media screen and (max-width: 425px) {
+  .footer__copyright {
     font-size: 14px;
     line-height: 17px;
   }

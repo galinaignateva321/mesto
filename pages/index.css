@@ -23,3 +23,20 @@
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__save-button/popup__save-button.css);
 @import url(../blocks/popup/__save-button-text/popup__save-button-text.css);
+@import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__form/popup__form.css);
+
+@import url(../blocks/photo-grid/photo-grid.css);
+@import url(../blocks/photo-grid/__images/photo-grid__images.css);
+@import url(../blocks/photo-grid/__image/photo-grid__image.css);
+@import url(../blocks/photo-grid/__title/photo-grid__title.css);
+@import url(../blocks/photo-grid/__like-button/photo-grid__like-button.css);
+@import url();
+@import url(../blocks/photo-grid/__description/photo-grid__description.css);
+@import url(../blocks/photo-grid/__like-button/__like-button_active/photo-grid__like-button_active.css);
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
+
+/* {
+  outline: 1px solid yellow;
+}/
