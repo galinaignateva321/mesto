@@ -1,0 +1,26 @@
+.popup__label {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+  color: #000000;
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+}
+
+.popup__label:focus {
+  opacity: 0.8;
+}
+
+.popup__input:focus ~ .popup__label {
+  display: none;
+}
+
+.popup__input:not(:placeholder-shown) ~ .popup__label {
+  display: none;
+}

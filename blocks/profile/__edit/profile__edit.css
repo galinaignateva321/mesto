@@ -1,11 +1,12 @@
 .profile__edit {
   display: flex;
   align-items: center;
-  column-gap: 18px;
+  column-gap: 19px;
 }
 
 @media screen and (max-width: 700px) {
   .profile__edit {
+    column-gap: 10px;
     margin-top: 26px;
     transform: translateX(10px);
   }
