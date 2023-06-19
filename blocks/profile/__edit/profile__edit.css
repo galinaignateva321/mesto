@@ -8,6 +8,5 @@
   .profile__edit {
     column-gap: 10px;
     margin-top: 26px;
-    transform: translateX(10px);
   }
 }

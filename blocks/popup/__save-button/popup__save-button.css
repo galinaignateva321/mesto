@@ -1,9 +1,15 @@
 .popup__save-button {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #ffffff;
   width: 100%;
   min-height: 50px;
   padding: 0;
   cursor: pointer;
-  color: white;
   border: none;
   background-color: black;
   display: flex;
@@ -24,5 +30,7 @@
   .popup__save-button {
     min-height: 46px;
     margin: 45px auto 0;
+    font-size: 14px;
+    line-height: 17px;
   }
 }

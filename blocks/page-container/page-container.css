@@ -4,7 +4,7 @@
   margin: 0 auto;
   /* выше отцентрировали весь контент */
 
-  font-family: "Inter", "Arial", sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   box-sizing: border-box;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
