@@ -9,7 +9,7 @@
   </head>
   <body class="page">
     <div class="page-container">
-      <header class="header section">
+      <header class="header">
         <img
           class="header__logo"
           src="./images/logo/logo.svg"
@@ -17,7 +17,7 @@
         />
       </header>
       <main class="content">
-        <section class="profile section section-padding" aria-label="Профиль">
+        <section class="profile section-margin" aria-label="Профиль">
           <img class="profile__avatar" src="./images/avatar.png" alt="Аватар" />
           <div class="profile__description">
             <div class="profile__edit">
@@ -29,7 +29,7 @@
           <button class="profile__add-button" type="button"></button>
         </section>
         <section
-          class="photo-grid section section-padding"
+          class="photo-grid section-margin"
           aria-label="Фотогалерея"
         >
           <article class="photo-grid__images">
@@ -106,13 +106,13 @@
           </article>
         </section>
       </main>
-      <footer class="footer section section-padding">
+      <footer class="footer section-margin">
         <p class="footer__copyright">© 2020 Mesto Russia</p>
       </footer>
-      <div class="popup section">
-        <fieldset class="popup__container">
+      <div class="popup">
+        <div class="popup__container">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form class="popup__form">
+          <form class="popup__form" name="form">
             <input
               placeholder="Имя"
               name="name"
@@ -134,7 +134,7 @@
             <button type="submit" class="popup__save-button">Сохранить</button>
           </form>
           <button class="popup__close-button" type="button"></button>
-        </fieldset>
+        </div>
       </div>
     </div>
     <script src="./scripts/index.js"></script>

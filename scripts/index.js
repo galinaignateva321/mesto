@@ -15,15 +15,16 @@ function handlEditClick() {
 }
 editButtonElement.addEventListener('click', handlEditClick);
 
-function handlCloseClick() {
+function handleClosePopup() {
   popupElement.classList.remove('popup_opened')
 }
-closeButtonElement.addEventListener('click', handlCloseClick);
+closeButtonElement.addEventListener('click', handleClosePopup);
 
 function handleFormSubmit(evt) {
   evt.preventDefault()
   nameEditElement.textContent = nameInputElement.value
   jobEditElement.textContent = jobInputElement.value
+  handleClosePopup()
 }
 formElement.addEventListener('submit', handleFormSubmit);
-formElement.addEventListener('submit', handlCloseClick);
+

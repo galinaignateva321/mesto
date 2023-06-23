@@ -14,8 +14,6 @@
   color: #000000;
   outline: none;
   box-sizing: border-box;
-  opacity: 0.6;
-  transition: opacity 0.4s ease;
   margin-top: 30px;
 }
 
@@ -25,5 +23,4 @@
 
 .popup__input:focus {
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
-  opacity: 0.8;
 }
