@@ -109,15 +109,15 @@
       <footer class="footer section-margin">
         <p class="footer__copyright">© 2020 Mesto Russia</p>
       </footer>
-      <div class="popup">
-        <div class="popup__container">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <form class="popup__form" name="form">
+      <div class="popup-edit-profile">
+        <div class="popup-edit-profile__container">
+          <h2 class="popup-edit-profile__title">Редактировать профиль</h2>
+          <form class="popup-edit-profile__form" name="edit-profile__form">
             <input
               placeholder="Имя"
               name="name"
               id="name"
-              class="popup__input popup__input_el_name"
+              class="popup-edit-profile__input popup-edit-profile__input_el_name"
               value=""
               type="text"
               required
@@ -126,14 +126,41 @@
               placeholder="О себе"
               name="job"
               id="job"
-              class="popup__input popup__input_el_job"
+              class="popup-edit-profile__input popup-edit-profile__input_el_job"
               value=""
               type="text"
               required
             />
-            <button type="submit" class="popup__save-button">Сохранить</button>
+            <button type="submit" class="popup-edit-profile__save-button">Сохранить</button>
           </form>
-          <button class="popup__close-button" type="button"></button>
+          <button class="popup-edit-profile__close-button" type="button"></button>
+        </div>
+      </div>
+      <div class="popup-add">
+        <div class="popup-add__container">
+          <h2 class="popup-add__title">Новое место</h2>
+          <form class="popup-add__form" name="add-form">
+            <input
+              placeholder="Название"
+              name="place-name"
+              id="place-name"
+              class="popup-add__input popup-add__input_el_place-name"
+              value=""
+              type="text"
+              required
+            />
+            <input
+              placeholder="Ссылка на картинку"
+              name="image-link"
+              id="image-link"
+              class="popup-add__input popup-add__input_el_image-link"
+              value=""
+              type="text"
+              required
+            />
+            <button type="submit" class="popup-add__create-button">Сохранить</button>
+          </form>
+          <button class="popup-add__close-button" type="button"></button>
         </div>
       </div>
     </div>

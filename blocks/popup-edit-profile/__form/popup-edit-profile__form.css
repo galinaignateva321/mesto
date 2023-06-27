@@ -1,4 +1,4 @@
-.popup__form {
+.popup-edit-profile__form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,11 +8,11 @@
   padding: 0;
 }
 
-.popup__form:last-child {
+.popup-edit-profile__form:last-child {
   gap: 0;
 }
 @media screen and (max-width: 700px) {
-  .popup__form {
+  .popup-edit-profile__form {
     margin-top: 75px;
   }
 }
