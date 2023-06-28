@@ -28,10 +28,17 @@
           </div>
           <button class="profile__add-button" type="button"></button>
         </section>
-        <section
-          class="photo-grid section-margin"
-          aria-label="Фотогалерея"
-        >
+        <section class="photo-grid section-margin" aria-label="Фотогалерея">
+          <template class="photo-grid__template">
+            <article class="photo-grid__images">
+              <img class="photo-grid__image" src="" alt="" data-type="auto" />
+              <button class="photo-grid__delete-button" type="button"></button>
+              <div class="photo-grid__description">
+                <h2 class="photo-grid__title"></h2>
+                <button class="photo-grid__like-button" type="button"></button>
+              </div>
+            </article>
+          </template>
           <article class="photo-grid__images">
             <img
               class="photo-grid__image"
@@ -39,6 +46,7 @@
               alt="старое здание похожее на церковь"
               data-type="auto"
             />
+            <button class="photo-grid__delete-button" type="button"></button>
             <div class="photo-grid__description">
               <h2 class="photo-grid__title">Карачаевск</h2>
               <button class="photo-grid__like-button" type="button"></button>
@@ -51,6 +59,7 @@
               alt="Гора Эльбрус на дальнем фоне"
               data-type="auto"
             />
+            <button class="photo-grid__delete-button" type="button"></button>
             <div class="photo-grid__description">
               <h2 class="photo-grid__title">Гора Эльбрус</h2>
               <button class="photo-grid__like-button" type="button"></button>
@@ -63,6 +72,7 @@
               alt="Вершина горы"
               data-type="auto"
             />
+            <button class="photo-grid__delete-button" type="button"></button>
             <div class="photo-grid__description">
               <h2 class="photo-grid__title">Домбай</h2>
               <button class="photo-grid__like-button" type="button"></button>
@@ -75,6 +85,7 @@
               alt="Гора Эльбрус на дальнем фоне"
               data-type="auto"
             />
+            <button class="photo-grid__delete-button" type="button"></button>
             <div class="photo-grid__description">
               <h2 class="photo-grid__title">Гора Эльбрус</h2>
               <button class="photo-grid__like-button" type="button"></button>
@@ -86,7 +97,8 @@
               src="./images/Group3.png"
               alt="Вершина горы"
               data-type="auto"
-            />
+            />            
+            <button class="photo-grid__delete-button" type="button"></button>
             <div class="photo-grid__description">
               <h2 class="photo-grid__title">Домбай</h2>
               <button class="photo-grid__like-button" type="button"></button>
@@ -99,6 +111,7 @@
               alt="старое здание похожее на церковь"
               data-type="auto"
             />
+            <button class="photo-grid__delete-button" type="button"></button>
             <div class="photo-grid__description">
               <h2 class="photo-grid__title">Карачаево-Черкесская</h2>
               <button class="photo-grid__like-button" type="button"></button>
@@ -131,9 +144,14 @@
               type="text"
               required
             />
-            <button type="submit" class="popup-edit-profile__save-button">Сохранить</button>
+            <button type="submit" class="popup-edit-profile__save-button">
+              Сохранить
+            </button>
           </form>
-          <button class="popup-edit-profile__close-button" type="button"></button>
+          <button
+            class="popup-edit-profile__close-button"
+            type="button"
+          ></button>
         </div>
       </div>
       <div class="popup-add">
@@ -158,7 +176,9 @@
               type="text"
               required
             />
-            <button type="submit" class="popup-add__create-button">Сохранить</button>
+            <button type="submit" class="popup-add__create-button">
+              Сохранить
+            </button>
           </form>
           <button class="popup-add__close-button" type="button"></button>
         </div>
