@@ -99,6 +99,13 @@ const addCard = ({name, link}) => {
    const cardElement = clone.querySelector('.photo-grid__images');
    cardElement.querySelector('.photo-grid__image').src = link;
    cardElement.querySelector('.photo-grid__title').textContent = name;
+
+   
+//удаление карточки
+   const deleteButtonElement = cardElement.querySelector('.photo-grid__delete-button');
+   deleteButtonElement.addEventListener('click', () => {
+   cardElement.remove();
+   })
    return cardElement;
 }
 
@@ -111,13 +118,14 @@ initialCards.forEach((item) => {
 //заполнение формы и добавление новой карточки из инпутов 
  const handleAddSubmit = (e) => {
   e.preventDefault()
-  
-  const name = inputNameAddElement.value
-  const link = inputLinkAddElement.value
-  const cardElement = addCard({name, link})
-  galleryElement.prepend(cardElement)
-  handleCloseAddPopup()
+
+  const name = inputNameAddElement.value;
+  const link = inputLinkAddElement.value;
+  const cardElement = addCard({name, link});
+  galleryElement.prepend(cardElement);
+  handleCloseAddPopup();
 }
 
 formAddElement.addEventListener('submit', handleAddSubmit);
+
 
