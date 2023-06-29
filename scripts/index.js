@@ -38,8 +38,6 @@ function handleFormSubmit(evt) {
 }
 formEditElement.addEventListener('submit', handleFormSubmit)
 
-
-
 //добавление фотографий
 
 const initialCards = [
@@ -68,11 +66,18 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
   },
 ]
-const popupAddElement = document.querySelector('.popup-add');
-const addButtonElement = document.querySelector('.profile__add-button');
-const closeAddPopupButtonElement = document.querySelector('.popup-add__close-button');
-const placeNameInputElement = document.querySelector('popup-add__input_el_place-name');
-const imageLinkInputElement = document.querySelector('popup-add__input_el_image-link');
+
+const popupAddElement = document.querySelector('.popup-add')
+const addButtonElement = document.querySelector('.profile__add-button')
+const closeAddPopupButtonElement = document.querySelector(
+  '.popup-add__close-button',
+)
+const placeNameInputElement = document.querySelector(
+  'popup-add__input_el_place-name',
+)
+const imageLinkInputElement = document.querySelector(
+  'popup-add__input_el_image-link',
+)
 
 //открытие попапа добавления
 function handlAddClick() {
@@ -86,46 +91,77 @@ function handleCloseAddPopup() {
 }
 closeAddPopupButtonElement.addEventListener('click', handleCloseAddPopup)
 
-
-const galleryElement = document.querySelector('.photo-grid');
-const formAddElement = document.querySelector('.popup-add__form');
-const inputNameAddElement = document.querySelector('.popup-add__input_el_place-name');
-const inputLinkAddElement = document.querySelector('.popup-add__input_el_image-link');
-const templateElement = document.querySelector('.photo-grid__template');
+const galleryElement = document.querySelector('.photo-grid')
+const formAddElement = document.querySelector('.popup-add__form')
+const inputNameAddElement = document.querySelector(
+  '.popup-add__input_el_place-name',
+)
+const inputLinkAddElement = document.querySelector(
+  '.popup-add__input_el_image-link',
+)
+const templateElement = document.querySelector('.photo-grid__template')
 
 //работа с темплейт шаблоном
-const addCard = ({name, link}) => {
-   const clone = templateElement.content.cloneNode(true);
-   const cardElement = clone.querySelector('.photo-grid__images');
-   cardElement.querySelector('.photo-grid__image').src = link;
-   cardElement.querySelector('.photo-grid__title').textContent = name;
+const addCard = ({ name, link }) => {
+  const clone = templateElement.content.cloneNode(true)
+  const cardElement = clone.querySelector('.photo-grid__images')
+  cardElement.querySelector('.photo-grid__image').src = link
+  cardElement.querySelector('.photo-grid__image').alt = name
+  cardElement.querySelector('.photo-grid__title').textContent = name
 
-   
-//удаление карточки
-   const deleteButtonElement = cardElement.querySelector('.photo-grid__delete-button');
-   deleteButtonElement.addEventListener('click', () => {
-   cardElement.remove();
-   })
-   return cardElement;
+  //удаление карточки
+  const deleteButtonElement = cardElement.querySelector(
+    '.photo-grid__delete-button',
+  )
+  deleteButtonElement.addEventListener('click', () => {
+    cardElement.remove()
+  })
+
+  //лайк карточки
+  const likeButtonElement = cardElement.querySelector(
+    '.photo-grid__like-button',
+  )
+  likeButtonElement.addEventListener('click', () => {
+    likeButtonElement.classList.toggle('photo-grid__like-button_active')
+  })
+
+  //открытие попапа с картинкой
+  const popupImageElement = document.querySelector('.popup-image')
+  const imageCardElement = cardElement.querySelector('.photo-grid__image')
+  imageCardElement.addEventListener('click', () => {
+    popupImageElement.classList.add('popup-image_opened')
+    popupImageElement.querySelector('.popup-image__photo').src = link
+    popupImageElement.querySelector('.popup-image__description').textContent =
+      name
+  })
+
+  //закрытие попапа с картинкой
+  const closeImagePopupButtonElement = document.querySelector(
+    '.popup-image__close-button',
+  )
+  closeImagePopupButtonElement.addEventListener('click', () => {
+    popupImageElement.classList.remove('popup-image_opened')
+  })
+  return cardElement
 }
 
-//вызов массива
+//отрисовка массива
 initialCards.forEach((item) => {
-  const cardElement = addCard(item);
-  galleryElement.prepend(cardElement);
+  const cardElement = addCard(item)
+  galleryElement.append(cardElement)
 })
 
-//заполнение формы и добавление новой карточки из инпутов 
- const handleAddSubmit = (e) => {
+//заполнение формы и добавление новой карточки из инпутов
+const handleAddSubmit = (e) => {
   e.preventDefault()
 
-  const name = inputNameAddElement.value;
-  const link = inputLinkAddElement.value;
-  const cardElement = addCard({name, link});
-  galleryElement.prepend(cardElement);
-  handleCloseAddPopup();
+  const name = inputNameAddElement.value
+  const link = inputLinkAddElement.value
+  const cardElement = addCard({ name, link })
+  galleryElement.prepend(cardElement)
+  handleCloseAddPopup()
 }
 
-formAddElement.addEventListener('submit', handleAddSubmit);
+formAddElement.addEventListener('submit', handleAddSubmit)
 
-
+//закрытие попапа с картинкой

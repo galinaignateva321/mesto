@@ -1,4 +1,4 @@
-.popup-edit-profile {
+.popup-image {
   display: none;
   position: fixed;
   top: 0;
@@ -8,6 +8,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.9);
   margin: auto;
 }
