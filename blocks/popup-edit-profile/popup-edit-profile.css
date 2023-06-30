@@ -1,7 +1,8 @@
 .popup-edit-profile {
+  display: flex;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s, opacity 0.5s;
+  transition: visibility 0.4s linear, opacity 0.4s linear;
   position: fixed;
   top: 0;
   right: 0;
