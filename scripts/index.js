@@ -35,6 +35,9 @@ const photoPopupElement = popupImageElement.querySelector('.popup-image__photo')
 const descriptionPopupElement = popupImageElement.querySelector(
   '.popup-image__description',
 )
+const closeImagePopupButtonElement = document.querySelector(
+  '.popup-image__close-button',
+)
 
 //открытие попапа (общая фунция)
 function openPopup(e) {
@@ -113,9 +116,7 @@ const createCard = ({ name, link }) => {
   return cardElement
 }
 //закрытие попапа с картинкой
-const closeImagePopupButtonElement = document.querySelector(
-  '.popup-image__close-button',
-)
+
 closeImagePopupButtonElement.addEventListener('click', () => {
   closePopup(popupImageElement)
 })
