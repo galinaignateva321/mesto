@@ -1,4 +1,3 @@
-//редактирование профиля
 const editButtonElement = document.querySelector('.profile__edit-button')
 const popupEditElement = document.querySelector('.popup-edit-profile')
 const buttonCloseProfileEditPopup = document.querySelector(
@@ -40,44 +39,58 @@ const closeImagePopupButtonElement = document.querySelector(
 )
 
 //открытие попапа (общая фунция)
-function openPopup(e) {
-  e.classList.add('popup_opened')
+function openPopup(popup) {
+  popup.classList.add('popup_opened')
 }
 
 //закрытие попапа (общая фунция)
-function closePopup(e) {
-  e.classList.remove('popup_opened')
+function closePopup(popup) {
+  popup.classList.remove('popup_opened')
 }
 
 //открытие попапа редактирования профиля
-editButtonElement.addEventListener('click', () => {
+const handleOpenProfileEditButton = () => {
   openPopup(popupEditElement)
   nameInputElement.value = nameElement.textContent
   jobInputElement.value = jobElement.textContent
-})
+}
+
+editButtonElement.addEventListener('click', handleOpenProfileEditButton)
 
 //закрытие попапа редактирование профиля по кнопке закрытия
-buttonCloseProfileEditPopup.addEventListener('click', () => {
+const handleCloseProfileEditPopupButton = () => {
   closePopup(popupEditElement)
-})
+}
+
+buttonCloseProfileEditPopup.addEventListener(
+  'click',
+  handleCloseProfileEditPopupButton,
+)
 
 //редактирование профиля, закрытие попапа по кнопке сохранения и энтер
-formEditElement.addEventListener('submit', (evt) => {
+const handleSaveProfileEditPopupButton = (evt) => {
   evt.preventDefault()
   nameElement.textContent = nameInputElement.value
   jobElement.textContent = jobInputElement.value
   closePopup(popupEditElement)
-})
+}
+
+formEditElement.addEventListener('submit', handleSaveProfileEditPopupButton)
 
 //открытие попапа добавления карточки по кнопке плюс
-addButtonElement.addEventListener('click', () => {
+const handleOpenAddCardButton = () => {
   openPopup(popupAddElement)
-})
+}
+addButtonElement.addEventListener('click', handleOpenAddCardButton)
 
 //закрытие попапа добавления карточки по кнопке закрытия
-closeAddPopupButtonElement.addEventListener('click', () => {
+const handleCloseAddCardPopupButton = () => {
   closePopup(popupAddElement)
-})
+}
+closeAddPopupButtonElement.addEventListener(
+  'click',
+  handleCloseAddCardPopupButton,
+)
 
 //Функция создания галереи с темплейт шаблона
 const createCard = ({ name, link }) => {
@@ -93,42 +106,48 @@ const createCard = ({ name, link }) => {
   const deleteButtonElement = cardElement.querySelector(
     '.photo-grid__delete-button',
   )
-  deleteButtonElement.addEventListener('click', () => {
+  const handleDeleteCardButton = () => {
     cardElement.remove()
-  })
+  }
+  deleteButtonElement.addEventListener('click', handleDeleteCardButton)
 
   //лайк карточки
   const likeButtonElement = cardElement.querySelector(
     '.photo-grid__like-button',
   )
-  likeButtonElement.addEventListener('click', () => {
+  const handleLikeCardButton = () => {
     likeButtonElement.classList.toggle('photo-grid__like-button_active')
-  })
+  }
+  likeButtonElement.addEventListener('click', handleLikeCardButton)
 
   //открытие попапа с картинкой
-  photoCardElement.addEventListener('click', () => {
+  const handleOpenImagePopupButton = () => {
     openPopup(popupImageElement)
     photoPopupElement.src = link
     photoPopupElement.alt = name
     descriptionPopupElement.textContent = name
-  })
+  }
+  photoCardElement.addEventListener('click', handleOpenImagePopupButton)
 
   return cardElement
 }
-//закрытие попапа с картинкой
-
-closeImagePopupButtonElement.addEventListener('click', () => {
-  closePopup(popupImageElement)
-})
-
 //отрисовка массива
 initialCards.forEach((item) => {
   const cardElement = createCard(item)
   galleryElement.append(cardElement)
 })
 
-//заполнение формы и добавление новой карточки из инпутов, закртие попапа
-formAddElement.addEventListener('submit', (evt) => {
+//закрытие попапа с картинкой
+const handleCloseImagePopupButton = () => {
+  closePopup(popupImageElement)
+}
+closeImagePopupButtonElement.addEventListener(
+  'click',
+  handleCloseImagePopupButton,
+)
+
+//заполнение формы и добавление новой карточки из инпутов, закрытие попапа
+const handleAddCardImagePopupButton = (evt) => {
   evt.preventDefault()
   const name = inputNameAddElement.value
   const link = inputLinkAddElement.value
@@ -136,4 +155,5 @@ formAddElement.addEventListener('submit', (evt) => {
   galleryElement.prepend(cardElement)
   closePopup(popupAddElement)
   evt.target.reset()
-})
+}
+formAddElement.addEventListener('submit', handleAddCardImagePopupButton)
