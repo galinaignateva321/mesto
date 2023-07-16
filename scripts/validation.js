@@ -1,51 +1,58 @@
-const formElement = document.querySelector('.form')
-const inputElements = formElement.querySelectorAll('.form__input')
+const VALIDATION_CONFIG = {
+  formElement: '.popup__form',
+  inputElement: '.popup__input',
+  buttonElement: '.popup__button',
+  disabledButtonElement: 'popup__button_disabled',
+  inputErrorElement: 'popup__input_type_error',
+  errorElement: 'popup__error_visible',
+}
 
-//добавление обработчиков всем полям формы
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'))
+function showInputError(formElement, inputElement, errorMessage, config) {
+  inputElement.classList.add(config.inputErrorElement)
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
+  errorElement.textContent = errorMessage
+  errorElement.classList.add(config.errorElement)
+}
+
+function hideInputError(formElement, inputElement, config) {
+  inputElement.classList.remove(config.inputErrorElement)
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
+  errorElement.classList.remove(config.errorElement)
+  errorElement.textContent = ''
+}
+
+const checkInputValidity = (formElement, inputElement, config) => {
+  if (!inputElement.validity.valid) {
+    showInputError(
+      formElement,
+      inputElement,
+      inputElement.validationMessage,
+      config,
+    )
+  } else {
+    hideInputError(formElement, inputElement, config)
+  }
+}
+
+const setEventListeners = (formElement, config) => {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputElement),
+  )
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement)
+      checkInputValidity(formElement, inputElement, config)
     })
   })
 }
 
-//показываем ошибку при валидации
-const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
-  inputElement.classList.add('form__input_type_error')
-  console.log(inputElement)
-  errorElement.textContent = errorMessage
-  errorElement.classList.add('form__input-error_active')
-}
-
-//скрываем ошибку при валидации
-const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
-  inputElement.classList.remove('form__input_type_error')
-  errorElement.classList.remove('form__input-error_active')
-  errorElement.textContent = ''
-}
-
-//валидация
-const checkInputValidity = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage)
-  } else {
-    hideInputError(formElement, inputElement)
-  }
-}
-
-//добавление обработчиков всем формам
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.form'))
+function enableValidation(config) {
+  const formList = Array.from(document.querySelectorAll(config.formElement))
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault()
     })
-    setEventListeners(formElement)
+    setEventListeners(formElement, config)
   })
 }
-
-enableValidation()
+enableValidation(VALIDATION_CONFIG)

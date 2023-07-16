@@ -1,31 +1,27 @@
 const editButtonElement = document.querySelector('.profile__edit-button')
-const popupEditElement = document.querySelector('.popup-edit-profile')
-const buttonCloseProfileEditPopup = document.querySelector(
-  '.popup-edit-profile__close-button',
+const popupEditElement = document.querySelector('.popup_theme_edit-profile')
+const buttonCloseProfileEditPopup = popupEditElement.querySelector(
+  '.popup__close-button',
 )
-const nameInputElement = document.querySelector(
-  '.popup-edit-profile__input_el_name',
-)
-const jobInputElement = document.querySelector(
-  '.popup-edit-profile__input_el_job',
-)
+
+const nameInputElement = document.querySelector('.popup__input_el_name')
+const jobInputElement = document.querySelector('.popup__input_el_job')
 const nameElement = document.querySelector('.profile__title')
 const jobElement = document.querySelector('.profile__subtitle')
-const formEditElement = document.querySelector('.popup-edit-profile__form')
+const formEditElement = document.querySelector('.popup__form')
 
-const popupAddElement = document.querySelector('.popup-add')
+const popupAddElement = document.querySelector('.popup_theme_add')
 const addButtonElement = document.querySelector('.profile__add-button')
-const closeAddPopupButtonElement = document.querySelector(
-  '.popup-add__close-button',
+const closeAddPopupButtonElement = popupAddElement.querySelector(
+  '.popup__close-button',
 )
-
 const galleryElement = document.querySelector('.photo-grid')
-const formAddElement = document.querySelector('.popup-add__form')
+const formAddElement = popupAddElement.querySelector('.popup__form')
 const inputNameAddElement = document.querySelector(
-  '.popup-add__input_el_place-name',
+  '.popup__input_el_place-name',
 )
 const inputLinkAddElement = document.querySelector(
-  '.popup-add__input_el_image-link',
+  '.popup__input_el_image-link',
 )
 const cardTemplate = document.querySelector('.photo-grid__template')
 const popupImageElement = document.querySelector('.popup-image')

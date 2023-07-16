@@ -1,9 +1,10 @@
-.form__input-error {
+.popup__error {
   color: #f00;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   width: 100%;
+  opacity: 0;
 }

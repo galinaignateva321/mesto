@@ -1,4 +1,4 @@
-.popup-edit-profile__input {
+.popup__input {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -17,10 +17,10 @@
   margin-top: 30px;
 }
 
-.popup-edit-profile__input:first-of-type {
+.popup__input:first-of-type {
   margin-top: 0;
 }
 
-.popup-edit-profile__input:focus {
+.popup__input:focus {
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
 }

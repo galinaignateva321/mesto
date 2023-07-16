@@ -1,4 +1,4 @@
-.popup-edit-profile__save-button {
+.popup__button {
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -21,13 +21,13 @@
   transition: opacity 0.4s ease;
   box-sizing: border-box;
 }
-.popup-edit-profile__save-button:hover,
-.popup-edit-profile__save-button:focus {
+.popup__button:hover,
+.popup__button:focus {
   opacity: 0.8;
 }
 
 @media screen and (max-width: 700px) {
-  .popup-edit-profile__save-button {
+  .popup__button {
     min-height: 46px;
     margin: 45px auto 0;
     font-size: 14px;
