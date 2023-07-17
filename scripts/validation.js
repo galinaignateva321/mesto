@@ -45,7 +45,7 @@ function setEventListeners(formElement, config) {
     formElement.querySelectorAll(config.inputElement),
   )
   const buttonElement = formElement.querySelector(config.buttonElement)
-  toggleButtonState(inputList, buttonElement, config)
+  // toggleButtonState(inputList, buttonElement, config)
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {

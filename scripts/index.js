@@ -53,7 +53,7 @@ const handleOpenProfileEditButton = () => {
 
 editButtonElement.addEventListener('click', handleOpenProfileEditButton)
 
-//закрытие попапа редактирование профиля по кнопке закрытия
+//закрытие попапа редактирования профиля по кнопке закрытия
 const handleCloseProfileEditPopupButton = () => {
   closePopup(popupEditElement)
 }
@@ -153,3 +153,54 @@ const handleAddCardImagePopupButton = (evt) => {
   evt.target.reset()
 }
 formAddElement.addEventListener('submit', handleAddCardImagePopupButton)
+
+//закрытие попапа редактирования профиля по оверлею
+const handleCloseProfileEditPopupOverlay = (e) => {
+  if (e.target === e.currentTarget) {
+    closePopup(popupEditElement)
+  }
+}
+popupEditElement.addEventListener('click', handleCloseProfileEditPopupOverlay)
+
+//закрытие попапа редактирования профиля по escape
+const handleCloseProfileEditPopupEscapeKey = (e) => {
+  if (e.keyCode === 27) {
+    closePopup(popupEditElement)
+  }
+}
+
+document.addEventListener('keydown', handleCloseProfileEditPopupEscapeKey)
+
+//закрытие попапа добавления карточки профиля по оверлею
+const handleCloseAddCardPopupOverlay = (e) => {
+  if (e.target === e.currentTarget) {
+    closePopup(popupAddElement)
+  }
+}
+popupAddElement.addEventListener('click', handleCloseAddCardPopupOverlay)
+
+//закрытие попапа добавления карточки профиля по escape
+const handleCloseAddCardPopupEscapeKey = (e) => {
+  if (e.keyCode === 27) {
+    closePopup(popupAddElement)
+  }
+}
+
+document.addEventListener('keydown', handleCloseAddCardPopupEscapeKey)
+
+//закрытие попапа добавления карточки профиля по оверлею
+const handleCloseImagePopupOverlay = (e) => {
+  if (e.target === e.currentTarget) {
+    closePopup(popupImageElement)
+  }
+}
+popupImageElement.addEventListener('click', handleCloseImagePopupOverlay)
+
+//закрытие попапа добавления карточки профиля по escape
+const handleCloseImagePopupEscapeKey = (e) => {
+  if (e.keyCode === 27) {
+    closePopup(popupImageElement)
+  }
+}
+
+document.addEventListener('keydown', handleCloseImagePopupEscapeKey)
