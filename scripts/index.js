@@ -1,6 +1,6 @@
 const editButtonElement = document.querySelector('.profile__edit-button')
 const popupEditElement = document.querySelector('.popup_theme_edit-profile')
-const buttonCloseProfileEditPopup = popupEditElement.querySelector(
+const closeProfileEditPopupButtonElement = popupEditElement.querySelector(
   '.popup__close-button',
 )
 
@@ -58,7 +58,7 @@ const handleCloseProfileEditPopupButton = () => {
   closePopup(popupEditElement)
 }
 
-buttonCloseProfileEditPopup.addEventListener(
+closeProfileEditPopupButtonElement.addEventListener(
   'click',
   handleCloseProfileEditPopupButton,
 )
