@@ -45,7 +45,7 @@ function setEventListeners(formElement, config) {
     formElement.querySelectorAll(config.inputElement),
   )
   const buttonElement = formElement.querySelector(config.buttonElement)
-  // toggleButtonState(inputList, buttonElement, config)
+  toggleButtonState(inputList, buttonElement, config)
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
@@ -75,16 +75,23 @@ function hasInvalidInput(inputList) {
   })
 }
 
+function inactivePopupButton(buttonElement, config) {
+  buttonElement.classList.add(config.inactiveButtonClass)
+  buttonElement.disabled = true
+}
+function activePopupButton(buttonElement, config) {
+  buttonElement.classList.remove(config.inactiveButtonClass)
+  buttonElement.disabled = false
+}
+
 // Функция принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
 // Если есть хотя бы один невалидный инпут сделает кнопку неактивной
 function toggleButtonState(inputList, buttonElement, config) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(config.inactiveButtonClass)
+    inactivePopupButton(buttonElement, config)
     console.log('ne validno')
-    buttonElement.disabled = true
   } else {
-    buttonElement.classList.remove(config.inactiveButtonClass)
+    activePopupButton(buttonElement, config)
     console.log('validno')
-    buttonElement.disabled = false
   }
 }

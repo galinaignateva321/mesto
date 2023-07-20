@@ -12,6 +12,8 @@ const formEditElement = document.querySelector('.popup__form')
 
 const popupAddElement = document.querySelector('.popup_theme_add')
 const addButtonElement = document.querySelector('.profile__add-button')
+const popupButtonElement = popupAddElement.querySelector('.popup__button')
+
 const closeAddPopupButtonElement = popupAddElement.querySelector(
   '.popup__close-button',
 )
@@ -37,11 +39,21 @@ const closeImagePopupButtonElement = document.querySelector(
 //открытие попапа (общая фунция)
 function openPopup(popup) {
   popup.classList.add('popup_opened')
+  document.addEventListener('keydown', handleClosePopupEscapeKey)
 }
 
 //закрытие попапа (общая фунция)
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
+  document.removeEventListener('keydown', handleClosePopupEscapeKey)
+}
+
+// закрытие попапа профиля по escape (общая фунция)
+function handleClosePopupEscapeKey(e, popup) {
+  if (e.keyCode === 27) {
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup)
+  }
 }
 
 //открытие попапа редактирования профиля
@@ -76,6 +88,8 @@ formEditElement.addEventListener('submit', handleSaveProfileEditPopupButton)
 //открытие попапа добавления карточки по кнопке плюс
 const handleOpenAddCardButton = () => {
   openPopup(popupAddElement)
+  popupButtonElement.classList.add('popup__button_disabled')
+  popupButtonElement.setAttribute('disabled', 'disabled')
 }
 addButtonElement.addEventListener('click', handleOpenAddCardButton)
 
@@ -162,15 +176,6 @@ const handleCloseProfileEditPopupOverlay = (e) => {
 }
 popupEditElement.addEventListener('click', handleCloseProfileEditPopupOverlay)
 
-//закрытие попапа редактирования профиля по escape
-const handleCloseProfileEditPopupEscapeKey = (e) => {
-  if (e.keyCode === 27) {
-    closePopup(popupEditElement)
-  }
-}
-
-document.addEventListener('keydown', handleCloseProfileEditPopupEscapeKey)
-
 //закрытие попапа добавления карточки профиля по оверлею
 const handleCloseAddCardPopupOverlay = (e) => {
   if (e.target === e.currentTarget) {
@@ -179,15 +184,6 @@ const handleCloseAddCardPopupOverlay = (e) => {
 }
 popupAddElement.addEventListener('click', handleCloseAddCardPopupOverlay)
 
-//закрытие попапа добавления карточки профиля по escape
-const handleCloseAddCardPopupEscapeKey = (e) => {
-  if (e.keyCode === 27) {
-    closePopup(popupAddElement)
-  }
-}
-
-document.addEventListener('keydown', handleCloseAddCardPopupEscapeKey)
-
 //закрытие попапа добавления карточки профиля по оверлею
 const handleCloseImagePopupOverlay = (e) => {
   if (e.target === e.currentTarget) {
@@ -195,12 +191,3 @@ const handleCloseImagePopupOverlay = (e) => {
   }
 }
 popupImageElement.addEventListener('click', handleCloseImagePopupOverlay)
-
-//закрытие попапа добавления карточки профиля по escape
-const handleCloseImagePopupEscapeKey = (e) => {
-  if (e.keyCode === 27) {
-    closePopup(popupImageElement)
-  }
-}
-
-document.addEventListener('keydown', handleCloseImagePopupEscapeKey)

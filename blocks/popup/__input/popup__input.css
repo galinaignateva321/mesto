@@ -14,7 +14,7 @@
   color: #000000;
   outline: none;
   box-sizing: border-box;
-  margin-top: 30px;
+  margin-top: 0;
 }
 
 .popup__input:first-of-type {
