@@ -49,8 +49,9 @@ function closePopup(popup) {
 }
 
 // закрытие попапа профиля по escape (общая фунция)
-function handleClosePopupEscapeKey(e, popup) {
-  if (e.keyCode === 27) {
+const EscapeKey = 27
+function handleClosePopupEscapeKey(e) {
+  if (e.keyCode === EscapeKey) {
     const openedPopup = document.querySelector('.popup_opened')
     closePopup(openedPopup)
   }
