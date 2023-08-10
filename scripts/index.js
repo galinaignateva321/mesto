@@ -1,194 +1,132 @@
-const editButtonElement = document.querySelector('.profile__edit-button')
-const popupEditElement = document.querySelector('.popup_theme_edit-profile')
-const closeProfileEditPopupButtonElement = popupEditElement.querySelector(
-  '.popup__close-button',
-)
+import Card from './Card.js'
+import FormValidator from './FormValidator.js'
+import {
+  initialCards,
+  validationConfig,
+  profileFormPopup,
+  cardFormPopup,
+  imagePopup,
+  editProfileButtonElement,
+  closeProfileFormButtonElement,
+  closeCardFormPopupButtonElement,
+  addCardButtonElement,
+  closeImagePopupButtonElement,
+  formEditElement,
+  formAddElement,
+  nameInputElement,
+  jobInputElement,
+  placeNameInputElement,
+  linkInputElement,
+  nameElement,
+  jobElement,
+  galleryElement,
+} from './constants.js'
 
-const nameInputElement = document.querySelector('.popup__input_el_name')
-const jobInputElement = document.querySelector('.popup__input_el_job')
-const nameElement = document.querySelector('.profile__title')
-const jobElement = document.querySelector('.profile__subtitle')
-const formEditElement = document.querySelector('.popup__form')
-
-const popupAddElement = document.querySelector('.popup_theme_add')
-const addButtonElement = document.querySelector('.profile__add-button')
-const popupButtonElement = popupAddElement.querySelector('.popup__button')
-
-const closeAddPopupButtonElement = popupAddElement.querySelector(
-  '.popup__close-button',
-)
-const galleryElement = document.querySelector('.photo-grid')
-const formAddElement = popupAddElement.querySelector('.popup__form')
-const inputNameAddElement = document.querySelector(
-  '.popup__input_el_place-name',
-)
-const inputLinkAddElement = document.querySelector(
-  '.popup__input_el_image-link',
-)
-const cardTemplate = document.querySelector('.photo-grid__template')
-const popupImageElement = document.querySelector('.popup-image')
-
-const photoPopupElement = popupImageElement.querySelector('.popup-image__photo')
-const descriptionPopupElement = popupImageElement.querySelector(
-  '.popup-image__description',
-)
-const closeImagePopupButtonElement = document.querySelector(
-  '.popup-image__close-button',
-)
-
-//открытие попапа (общая фунция)
-function openPopup(popup) {
-  popup.classList.add('popup_opened')
-  document.addEventListener('keydown', handleClosePopupEscapeKey)
-}
-
-//закрытие попапа (общая фунция)
-function closePopup(popup) {
-  popup.classList.remove('popup_opened')
-  document.removeEventListener('keydown', handleClosePopupEscapeKey)
-}
-
-// закрытие попапа профиля по escape (общая фунция)
-const EscapeKey = 27
-function handleClosePopupEscapeKey(e) {
-  if (e.keyCode === EscapeKey) {
-    const openedPopup = document.querySelector('.popup_opened')
-    closePopup(openedPopup)
-  }
-}
+import {
+  openModalWindow,
+  closeModalWondow,
+  handleEscUp,
+  handleClickOverlay,
+} from './utils.js'
 
 //открытие попапа редактирования профиля
 const handleOpenProfileEditButton = () => {
-  openPopup(popupEditElement)
+  //инпуты принимают изначальные значения из разметки профиля
   nameInputElement.value = nameElement.textContent
   jobInputElement.value = jobElement.textContent
+  openModalWindow(profileFormPopup)
 }
 
-editButtonElement.addEventListener('click', handleOpenProfileEditButton)
+editProfileButtonElement.addEventListener('click', handleOpenProfileEditButton)
 
 //закрытие попапа редактирования профиля по кнопке закрытия
 const handleCloseProfileEditPopupButton = () => {
-  closePopup(popupEditElement)
+  closeModalWondow(profileFormPopup)
 }
 
-closeProfileEditPopupButtonElement.addEventListener(
+closeProfileFormButtonElement.addEventListener(
   'click',
   handleCloseProfileEditPopupButton,
 )
 
 //редактирование профиля, закрытие попапа по кнопке сохранения и энтер
 const handleSaveProfileEditPopupButton = (evt) => {
+  //отмена дефолтной отправки сабмит
   evt.preventDefault()
+  //значения разметки принимают значения введенные в инпуты попапа
   nameElement.textContent = nameInputElement.value
   jobElement.textContent = jobInputElement.value
-  closePopup(popupEditElement)
+  closeModalWondow(profileFormPopup)
 }
 
 formEditElement.addEventListener('submit', handleSaveProfileEditPopupButton)
 
 //открытие попапа добавления карточки по кнопке плюс
 const handleOpenAddCardButton = () => {
-  openPopup(popupAddElement)
-  popupButtonElement.classList.add('popup__button_disabled')
-  popupButtonElement.setAttribute('disabled', 'disabled')
+  openModalWindow(cardFormPopup)
+  //инпуты очищаются
+  placeNameInputElement.value = ''
+  linkInputElement.value = ''
+  //кнопка неактивна при открытии попапа
+  formAddCard.inactivePopupButton()
 }
-addButtonElement.addEventListener('click', handleOpenAddCardButton)
+addCardButtonElement.addEventListener('click', handleOpenAddCardButton)
+
+//рендер карточки
+const renderCard = (item) => {
+  //создаем экземпляр карторчки из класса Card
+  const cardElement = new Card(item, '.card__template')
+  //вставляем карточку перед остальными карточками
+  galleryElement.prepend(cardElement.generateCard())
+}
+
+//проходим по всему массиву, рендерим все карточки
+initialCards.forEach((item) => {
+  renderCard(item)
+})
+
+//заполнение формы и добавление новой карточки из инпутов, закрытие попапа
+const handleAddCardImagePopupButton = (evt) => {
+  evt.preventDefault()
+  renderCard({
+    name: placeNameInputElement.value,
+    link: linkInputElement.value,
+  })
+  closeModalWondow(cardFormPopup)
+  evt.target.reset()
+}
+formAddElement.addEventListener('submit', handleAddCardImagePopupButton)
 
 //закрытие попапа добавления карточки по кнопке закрытия
 const handleCloseAddCardPopupButton = () => {
-  closePopup(popupAddElement)
+  closeModalWondow(cardFormPopup)
 }
-closeAddPopupButtonElement.addEventListener(
+closeCardFormPopupButtonElement.addEventListener(
   'click',
   handleCloseAddCardPopupButton,
 )
 
-//Функция создания галереи с темплейт шаблона
-const createCard = ({ name, link }) => {
-  const clone = cardTemplate.content.cloneNode(true)
-  const cardElement = clone.querySelector('.photo-grid__images')
-  const photoCardElement = cardElement.querySelector('.photo-grid__image')
-  const titleCardElement = cardElement.querySelector('.photo-grid__title')
-  photoCardElement.src = link
-  photoCardElement.alt = name
-  titleCardElement.textContent = name
-
-  //удаление карточки
-  const deleteButtonElement = cardElement.querySelector(
-    '.photo-grid__delete-button',
-  )
-  const handleDeleteCardButton = () => {
-    cardElement.remove()
-  }
-  deleteButtonElement.addEventListener('click', handleDeleteCardButton)
-
-  //лайк карточки
-  const likeButtonElement = cardElement.querySelector(
-    '.photo-grid__like-button',
-  )
-  const handleLikeCardButton = () => {
-    likeButtonElement.classList.toggle('photo-grid__like-button_active')
-  }
-  likeButtonElement.addEventListener('click', handleLikeCardButton)
-
-  //открытие попапа с картинкой
-  const handleOpenImagePopupButton = () => {
-    openPopup(popupImageElement)
-    photoPopupElement.src = link
-    photoPopupElement.alt = name
-    descriptionPopupElement.textContent = name
-  }
-  photoCardElement.addEventListener('click', handleOpenImagePopupButton)
-
-  return cardElement
-}
-//отрисовка массива
-initialCards.forEach((item) => {
-  const cardElement = createCard(item)
-  galleryElement.append(cardElement)
-})
-
+//открытие попапа с картинкой в классе Card
 //закрытие попапа с картинкой
 const handleCloseImagePopupButton = () => {
-  closePopup(popupImageElement)
+  closeModalWondow(imagePopup)
 }
 closeImagePopupButtonElement.addEventListener(
   'click',
   handleCloseImagePopupButton,
 )
 
-//заполнение формы и добавление новой карточки из инпутов, закрытие попапа
-const handleAddCardImagePopupButton = (evt) => {
-  evt.preventDefault()
-  const name = inputNameAddElement.value
-  const link = inputLinkAddElement.value
-  const cardElement = createCard({ name, link })
-  galleryElement.prepend(cardElement)
-  closePopup(popupAddElement)
-  evt.target.reset()
-}
-formAddElement.addEventListener('submit', handleAddCardImagePopupButton)
+//листенеры всех попапов закрытия по оверлею
+profileFormPopup.addEventListener('click', handleClickOverlay)
+cardFormPopup.addEventListener('click', handleClickOverlay)
+imagePopup.addEventListener('click', handleClickOverlay)
 
-//закрытие попапа редактирования профиля по оверлею
-const handleCloseProfileEditPopupOverlay = (e) => {
-  if (e.target === e.currentTarget) {
-    closePopup(popupEditElement)
-  }
-}
-popupEditElement.addEventListener('click', handleCloseProfileEditPopupOverlay)
+//валидация всех попапов
+//экземпляр валидации попапа редактирования профиля
+const formEditProfile = new FormValidator(validationConfig, profileFormPopup)
+//экземпляр валидации попапа добавления карточки
+const formAddCard = new FormValidator(validationConfig, cardFormPopup)
 
-//закрытие попапа добавления карточки профиля по оверлею
-const handleCloseAddCardPopupOverlay = (e) => {
-  if (e.target === e.currentTarget) {
-    closePopup(popupAddElement)
-  }
-}
-popupAddElement.addEventListener('click', handleCloseAddCardPopupOverlay)
-
-//закрытие попапа добавления карточки профиля по оверлею
-const handleCloseImagePopupOverlay = (e) => {
-  if (e.target === e.currentTarget) {
-    closePopup(popupImageElement)
-  }
-}
-popupImageElement.addEventListener('click', handleCloseImagePopupOverlay)
+//сама валидация форм
+formEditProfile.enableValidation()
+formAddCard.enableValidation()

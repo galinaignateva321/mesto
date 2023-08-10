@@ -1,0 +1,10 @@
+.popup__container_content_image {
+  max-width: max-content;
+  height: min-content;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  align-items: start;
+  padding: 0;
+  justify-content: flex-start;
+}

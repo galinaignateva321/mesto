@@ -1,21 +1,18 @@
-.photo-grid__delete-button {
+.card__like-button {
   background: transparent;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url(../../../images/Delete.svg);
-  min-width: 18px;
+  background-image: url(../../../images/Vector.svg);
+  min-width: 22px;
   min-height: 19px;
   padding: 0;
-  color: white;
+  color: black;
   cursor: pointer;
   border: none;
   transition: opacity 0.4s ease;
   background-size: fill;
-  position: absolute;
-  top: 20px;
-  right: 20px;
 }
 
-.photo-grid__delete-button:hover {
-  opacity: 0.6;
+.card__like-button:hover {
+  opacity: 0.5;
 }

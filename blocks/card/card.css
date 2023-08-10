@@ -1,4 +1,4 @@
-.photo-grid {
+.card {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
   justify-content: space-between;
@@ -10,7 +10,7 @@
 }
 
 @media screen and (max-width: 700px) {
-  .photo-grid {
+  .card {
     margin-top: 36px;
     margin-bottom: 48px;
   }
