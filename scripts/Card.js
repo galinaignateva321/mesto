@@ -34,6 +34,7 @@ class Card {
   // удаление карточки
   _handleDeleteCardButton() {
     this._newCard.remove()
+    this._newCard = null
   }
   // лайк карточки
   _handleLikeCardButton() {

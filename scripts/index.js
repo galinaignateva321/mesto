@@ -50,7 +50,7 @@ closeProfileFormButtonElement.addEventListener(
 )
 
 //редактирование профиля, закрытие попапа по кнопке сохранения и энтер
-const handleSaveProfileEditPopupButton = (evt) => {
+const submitFormEditElement = (evt) => {
   //отмена дефолтной отправки сабмит
   evt.preventDefault()
   //значения разметки принимают значения введенные в инпуты попапа
@@ -59,7 +59,7 @@ const handleSaveProfileEditPopupButton = (evt) => {
   closeModalWondow(profileFormPopup)
 }
 
-formEditElement.addEventListener('submit', handleSaveProfileEditPopupButton)
+formEditElement.addEventListener('submit', submitFormEditElement)
 
 //открытие попапа добавления карточки по кнопке плюс
 const handleOpenAddCardButton = () => {
@@ -74,7 +74,7 @@ addCardButtonElement.addEventListener('click', handleOpenAddCardButton)
 
 //рендер карточки
 const renderCard = (item) => {
-  //создаем экземпляр карторчки из класса Card
+  //создаем экземпляр карточки из класса Card
   const cardElement = new Card(item, '.card__template')
   //вставляем карточку перед остальными карточками
   galleryElement.prepend(cardElement.generateCard())
@@ -86,16 +86,17 @@ initialCards.forEach((item) => {
 })
 
 //заполнение формы и добавление новой карточки из инпутов, закрытие попапа
-const handleAddCardImagePopupButton = (evt) => {
+const submitFormAddElement = (evt) => {
   evt.preventDefault()
   renderCard({
     name: placeNameInputElement.value,
     link: linkInputElement.value,
   })
   closeModalWondow(cardFormPopup)
+  //сброс значений
   evt.target.reset()
 }
-formAddElement.addEventListener('submit', handleAddCardImagePopupButton)
+formAddElement.addEventListener('submit', submitFormAddElement)
 
 //закрытие попапа добавления карточки по кнопке закрытия
 const handleCloseAddCardPopupButton = () => {
@@ -117,9 +118,9 @@ closeImagePopupButtonElement.addEventListener(
 )
 
 //листенеры всех попапов закрытия по оверлею
-profileFormPopup.addEventListener('click', handleClickOverlay)
-cardFormPopup.addEventListener('click', handleClickOverlay)
-imagePopup.addEventListener('click', handleClickOverlay)
+profileFormPopup.addEventListener('mousedown', handleClickOverlay)
+cardFormPopup.addEventListener('mousedown', handleClickOverlay)
+imagePopup.addEventListener('mousedown', handleClickOverlay)
 
 //валидация всех попапов
 //экземпляр валидации попапа редактирования профиля
