@@ -33,36 +33,28 @@ export const validationConfig = {
   inputErrorSelector: 'popup__input_type_error',
   errorSelector: 'popup__error_visible',
 }
+export const ESC_KEYCODE = 27
 
 //Врапперы
-export const profileFormPopup = document.querySelector(
+export const profileFormPopupSelector = document.querySelector(
   '.popup_theme_edit-profile',
 )
 export const cardFormPopup = document.querySelector('.popup_theme_create-card')
 export const imagePopup = document.querySelector('.popup_theme_image')
-
-//кнопки
+export const popupCloseButton = document.querySelector('.popup__close-button')
+////кнопки
 //кнопки редактирование профиля
 export const editProfileButtonElement = document.querySelector(
   '.profile__edit-button',
 )
-export const closeProfileFormButtonElement = document.querySelector(
-  '.popup__close-button_el_edit-profile',
-)
 //кнопки добавления карточки
-export const closeCardFormPopupButtonElement = document.querySelector(
-  '.popup__close-button_el_add-card',
-)
 export const addCardButtonElement = document.querySelector(
   '.profile__add-button',
 )
-//кнопки фото-попапа
-export const closeImagePopupButtonElement = document.querySelector(
-  '.popup__close-button_el_image',
-)
 
 //Формы и инпуты форм
-export const formEditElement = profileFormPopup.querySelector('.popup__form')
+export const formEditElement =
+  profileFormPopupSelector.querySelector('.popup__form')
 export const formAddElement = cardFormPopup.querySelector('.popup__form')
 export const nameInputElement = document.querySelector('.popup__input_el_name')
 export const jobInputElement = document.querySelector('.popup__input_el_job')
@@ -82,6 +74,3 @@ export const descriptionImagePopup = imagePopup.querySelector(
 //DOM узлы профиля из разметки
 export const nameElement = document.querySelector('.profile__title')
 export const jobElement = document.querySelector('.profile__subtitle')
-
-//DOM узел всех карточек
-export const galleryElement = document.querySelector('.card')

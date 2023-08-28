@@ -1,4 +1,4 @@
-import { openModalWindow } from './utils.js'
+import Popup from './Popup.js'
 
 import {
   imagePopup,
@@ -6,11 +6,12 @@ import {
   descriptionImagePopup,
 } from './constants.js'
 
-class Card {
-  constructor(data, cardTemplate) {
+export default class Card {
+  constructor(data, cardTemplate, handleCardClick) {
     this._name = data.name
     this._link = data.link
     this._cardTemplate = cardTemplate
+    this.handleCardClick = handleCardClick
   }
 
   //получаем шаблон
@@ -41,13 +42,6 @@ class Card {
     const likeButtonElement = this._newCard.querySelector('.card__like-button')
     likeButtonElement.classList.toggle('card__like-button_active')
   }
-  // открытие попапа с картинкой
-  _handleOpenImagePopupButton() {
-    openModalWindow(imagePopup)
-    photoImagePopup.src = this._link
-    photoImagePopup.alt = this._name
-    descriptionImagePopup.textContent = this._name
-  }
 
   //слушатели
   _setListeners() {
@@ -66,10 +60,11 @@ class Card {
       this._handleLikeCardButton()
     })
 
-    // открытие попапа с картинкой
+    // слушатель на открытие попапа с картинкой
+    // вызывает функцию handleCardClick
     const photoCardElement = this._newCard.querySelector('.card__image')
-    photoCardElement.addEventListener('click', () =>
-      this._handleOpenImagePopupButton(),
+    photoCardElement.addEventListener('click', (evt) =>
+      this.handleCardClick(evt),
     )
   }
 
@@ -82,5 +77,3 @@ class Card {
     return this._newCard
   }
 }
-
-export default Card
