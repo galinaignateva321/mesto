@@ -1,10 +1,10 @@
 import '../pages/index.css'
-import Section from './Section.js'
-import UserInfo from './UserInfo.js'
-import PopupWithForm from './PopupWithForm.js'
-import PopupWithImage from './PopupWithImage.js'
-import Card from './Card.js'
-import FormValidator from './FormValidator.js'
+import Section from '../components/Section.js'
+import UserInfo from '../components/UserInfo.js'
+import PopupWithForm from '../components/PopupWithForm.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+import Card from '../components/Card.js'
+import FormValidator from '../components/FormValidator.js'
 import {
   initialCards,
   validationConfig,
@@ -14,10 +14,9 @@ import {
   addCardButtonElement,
   nameInputElement,
   jobInputElement,
-  placeNameInputElement,
-  linkInputElement,
   profileFormPopupSelector,
-} from './constants.js'
+  formAddElement,
+} from '../utils/constants.js'
 
 //экземпляр UserInfo отвечает за управление отображением информации о пользователе на странице
 const newUserInfo = new UserInfo('.profile__title', '.profile__subtitle')
@@ -40,31 +39,27 @@ newPopupEditProfile.setEventListeners()
 
 //функция открытия редактирование профиля
 const handleOpenProfileEditButton = () => {
-  newPopupEditProfile.handleOpenPopup()
-  const inputDefaultList = newUserInfo.getUserInfo()
-  nameInputElement.value = inputDefaultList.userName
-  jobInputElement.value = inputDefaultList.aboutUser
+  newPopupEditProfile.open()
+  const { userName, aboutUser } = newUserInfo.getUserInfo()
+  nameInputElement.value = userName
+  jobInputElement.value = aboutUser
 }
-
-editProfileButtonElement.addEventListener('click', handleOpenProfileEditButton)
 
 //класс PopupWithImage
 const newImagePopup = new PopupWithImage(imagePopup)
 
-// открытие попапа с картинкой
+//функция открытие попапа с картинкой
 const handleCardClick = (evt) => {
-  newImagePopup.handleOpenPopup(evt)
+  newImagePopup.open(evt)
 }
 newImagePopup.setEventListeners()
 
-//открытие попапа добавления карточки по кнопке плюс
+//функция открытие попапа добавления карточки по кнопке плюс
 const handleOpenAddCardButton = () => {
-  newPopupAddCard.handleOpenPopup()
-  placeNameInputElement.value = ''
-  linkInputElement.value = ''
+  newPopupAddCard.open()
+  formAddElement.reset()
   formAddCard.inactivePopupButton()
 }
-addCardButtonElement.addEventListener('click', handleOpenAddCardButton)
 
 // экземпляр карточки из класса Card
 const createCard = (item, cardList) => {
@@ -75,7 +70,7 @@ const createCard = (item, cardList) => {
 
 //заполнение формы и добавление новой карточки из инпутов, закрытие попапа
 const submitCallBackFormAdd = (data) => {
-  createCard({ name: data.name, link: data.link }, cardGrid)
+  createCard(data, cardGrid)
 }
 
 // экземпляр PopupWithForm попап добавления новой карточки
@@ -108,3 +103,7 @@ const formAddCard = new FormValidator(validationConfig, cardFormPopup)
 //сама валидация форм
 formEditProfile.enableValidation()
 formAddCard.enableValidation()
+
+//слушатели на клик
+editProfileButtonElement.addEventListener('click', handleOpenProfileEditButton)
+addCardButtonElement.addEventListener('click', handleOpenAddCardButton)

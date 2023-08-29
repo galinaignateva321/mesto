@@ -1,11 +1,3 @@
-import Popup from './Popup.js'
-
-import {
-  imagePopup,
-  photoImagePopup,
-  descriptionImagePopup,
-} from './constants.js'
-
 export default class Card {
   constructor(data, cardTemplate, handleCardClick) {
     this._name = data.name
@@ -16,12 +8,10 @@ export default class Card {
 
   //получаем шаблон
   _getTemplate() {
-    const cloneCard = document
+    return document
       .querySelector(this._cardTemplate)
       .content.querySelector('.card__images')
       .cloneNode(true)
-
-    return cloneCard
   }
 
   //присвоение данных к шаблону
@@ -31,6 +21,7 @@ export default class Card {
     photoCardElement.src = this._link
     photoCardElement.alt = this._name
     titleCardElement.textContent = this._name
+    this.likebutton = this._newCard.querySelector('.card__like-button')
   }
   // удаление карточки
   _handleDeleteCardButton() {
@@ -39,8 +30,7 @@ export default class Card {
   }
   // лайк карточки
   _handleLikeCardButton() {
-    const likeButtonElement = this._newCard.querySelector('.card__like-button')
-    likeButtonElement.classList.toggle('card__like-button_active')
+    this.likebutton.classList.toggle('card__like-button_active')
   }
 
   //слушатели
@@ -54,9 +44,8 @@ export default class Card {
     })
 
     // лайк карточки
-    const likeButtonElement = this._newCard.querySelector('.card__like-button')
 
-    likeButtonElement.addEventListener('click', () => {
+    this.likebutton.addEventListener('click', () => {
       this._handleLikeCardButton()
     })
 
