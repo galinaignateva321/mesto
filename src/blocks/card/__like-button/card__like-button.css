@@ -11,6 +11,7 @@
   border: none;
   transition: opacity 0.4s ease;
   background-size: fill;
+  margin-bottom: 3px;
 }
 
 .card__like-button:hover {

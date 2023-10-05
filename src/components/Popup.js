@@ -1,4 +1,4 @@
-import { ESC_KEYCODE } from '../utils/constants.js'
+import { ESCAPE } from '../utils/constants.js'
 
 export default class Popup {
   constructor(popupSelector) {
@@ -13,8 +13,9 @@ export default class Popup {
 
     return popup
   }
+
   _handleEscClose = (e) => {
-    if (e.keyCode === ESC_KEYCODE) {
+    if (e.keyCode === ESCAPE) {
       this.close()
     }
   }

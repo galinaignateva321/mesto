@@ -45,7 +45,7 @@
         <form class="popup__form" name="edit-profile__form" novalidate>
           <input
             placeholder="Имя"
-            name="userName"
+            name="name"
             id="username-input"
             class="popup__input popup__input_el_name"
             value=""
@@ -57,7 +57,7 @@
           <span class="popup__error username-input-error"></span>
           <input
             placeholder="О себе"
-            name="aboutUser"
+            name="about"
             id="about-user-input"
             class="popup__input popup__input_el_job"
             value=""
@@ -120,13 +120,28 @@
         <figcaption class="popup__description"></figcaption>
       </figure>
     </div>
+    <div class="popup popup_theme_delete-card">
+      <div class="popup__container">
+        <form class="popup__form" name="delete-card-form" novalidate>
+          <h2 class="popup__title">Вы уверены?</h2>
+          <button type="submit" class="popup__button">Да</button>
+        </form>
+        <button
+          class="popup__close-button popup__close-button_el_delete-card"
+          type="button"
+        ></button>
+      </div>
+    </div>
     <template class="card__template">
       <article class="card__images">
         <img class="card__image" src="#" alt="" data-type="auto" />
         <button class="card__delete-button" type="button"></button>
         <div class="card__description">
           <h2 class="card__title"></h2>
-          <button class="card__like-button" type="button"></button>
+          <div class="card__like-group">
+            <button class="card__like-button" type="button"></button>
+            <p class="card__like-count"></p>
+          </div>
         </div>
       </article>
     </template>

@@ -33,7 +33,7 @@ export const validationConfig = {
   inputErrorSelector: 'popup__input_type_error',
   errorSelector: 'popup__error_visible',
 }
-export const ESC_KEYCODE = 27
+export const ESCAPE = 27
 
 //Врапперы
 export const profileFormPopupSelector = document.querySelector(
@@ -42,6 +42,9 @@ export const profileFormPopupSelector = document.querySelector(
 export const cardFormPopup = document.querySelector('.popup_theme_create-card')
 export const imagePopup = document.querySelector('.popup_theme_image')
 export const popupCloseButton = document.querySelector('.popup__close-button')
+export const deleteCardPopup = document.querySelector(
+  '.popup_theme_delete-card',
+)
 ////кнопки
 //кнопки редактирование профиля
 export const editProfileButtonElement = document.querySelector(
