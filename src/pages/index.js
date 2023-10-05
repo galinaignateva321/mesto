@@ -76,8 +76,7 @@ const handleCardClick = (evt) => {
 }
 newImagePopup.setEventListeners()
 
-// //удаление карточки
-
+//удаление карточки
 const submitCallBackDeleteCard = (cardId) => {
   console.log(cardId)
   api.deleteCard(cardId).then((data) => {
