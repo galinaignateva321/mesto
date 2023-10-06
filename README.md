@@ -23,4 +23,4 @@
 
 ### Ссылка на сайт
 
-[https://galinaignateva321.github.io/mesto/index.html]
+[https://galinaignateva321.github.io/mesto]
