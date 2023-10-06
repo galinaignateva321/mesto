@@ -20,6 +20,7 @@
   margin: 0 auto;
   transition: opacity 0.4s ease;
   box-sizing: border-box;
+  margin-top: 48px;
 }
 .popup__button:hover,
 .popup__button:focus {

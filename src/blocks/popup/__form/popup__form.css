@@ -6,11 +6,11 @@
   border: none;
   outline: none;
   padding: 0;
-  flex-basis: 230px;
+  /* flex-basis: 230px; */
 }
 
 @media screen and (max-width: 700px) {
   .popup__form {
-    flex-basis: 175px;
+    /* flex-basis: 175px; */
   }
 }

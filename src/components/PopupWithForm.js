@@ -6,7 +6,9 @@ export default class PopupWithForm extends Popup {
     this._form = popupSelector.querySelector('.popup__form')
 
     this._inputList = this._form.querySelectorAll('.popup__input')
+    this._submitButton = this._form.querySelector('.popup__button')
     this.submitCallBack = submitCallBack
+    // this._avatar = document.querySelector(avatar)
   }
 
   //Этот метод собирает массив всех полей в форме,
@@ -24,6 +26,14 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close()
     this._form.reset()
+  }
+
+  save() {
+    this._submitButton.textContent = 'Сохранение...'
+  }
+
+  saved() {
+    this._submitButton.textContent = 'Сохранить'
   }
 
   setEventListeners() {

@@ -31,8 +31,9 @@ export class Api {
       body: JSON.stringify(data),
     })
   }
+  $
 
-  createNewAvatar() {
+  createNewAvatar(data) {
     return this._getRequest(`${this._url}/v1/cohort-76/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,

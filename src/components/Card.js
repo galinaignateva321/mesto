@@ -1,6 +1,6 @@
 export default class Card {
   constructor(
-    { name, link, _id, likes },
+    { name, link, _id, likes, owner },
     cardTemplate,
     handleCardClick,
     openDeletePopup,
@@ -18,6 +18,8 @@ export default class Card {
     this._handleLikeCard = handleLikeCard
     this._handleDeleteLikeCard = handleDeleteLikeCard
     this._myID = myID
+    this._cardItem = Card
+    this._ownerID = owner._id
   }
 
   //получаем шаблон
@@ -46,28 +48,23 @@ export default class Card {
 
   _handleLikeCardButton() {
     if (this.likebutton.classList.contains('card__like-button_active')) {
-      console.log('есть мой лайк')
+      // console.log('есть мой лайк')
       this._handleDeleteLikeCard(this._cardId)
     } else {
-      console.log('нет моего лайка')
+      // console.log('нет моего лайка')
       this._handleLikeCard(this._cardId)
     }
   }
 
   _setListeners() {
-    // удаление карточки
     this.deleteButtonElement.addEventListener('click', () => {
-      this.openDeletePopup(this._cardId)
-      console.log(this._cardId)
+      this.openDeletePopup(this._cardId, this)
     })
 
-    // лайк карточки
     this.likebutton.addEventListener('click', () => {
       this._handleLikeCardButton()
     })
 
-    // слушатель на открытие попапа с картинкой
-    // вызывает функцию handleCardClick
     this.photoCardElement.addEventListener('click', (evt) => {
       this.handleCardClick(evt)
     })
@@ -88,7 +85,6 @@ export default class Card {
   setLike(data) {
     this._likes = data.likes
     this.likeCount.textContent = this._likes.length
-    console.log(this._likes.length)
   }
 
   _checkLike() {
@@ -99,12 +95,18 @@ export default class Card {
     })
   }
 
+  _showBasket() {
+    if (this._ownerID !== this._myID) {
+      this.deleteButtonElement.remove()
+    }
+  }
   //создание карточки
   generateCard() {
     this._newCard = this._getTemplate()
     this._setData()
     this._setListeners()
     this._checkLike()
+    this._showBasket()
     return this._newCard
   }
 }

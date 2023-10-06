@@ -17,6 +17,10 @@ import {
   profileFormPopupSelector,
   formAddElement,
   deleteCardPopup,
+  avatarFormPopup,
+  editAvatarButtonElement,
+  avatarLinkInputElement,
+  avatarElement,
 } from '../utils/constants.js'
 import { data } from 'autoprefixer'
 import PopupWithDelete from '../components/PopupWithDelete.js'
@@ -31,22 +35,41 @@ const apiOptions = {
 }
 const api = new Api(apiOptions)
 
-const newUserInfo = new UserInfo('.profile__title', '.profile__subtitle')
-
-let myID
+const newUserInfo = new UserInfo(
+  '.profile__title',
+  '.profile__subtitle',
+  '.profile__avatar',
+)
 let myAvatar
+let myID
 api.getUser().then((data) => {
   newUserInfo.setUserInfo(data)
   myID = data._id
   myAvatar = data.avatar
-  // console.log(myAvatar)
 })
 
-const handleEditAvatar = () => {
+const handleOpenAvatarEditButton = () => {
   newPopupEditAvatar.open()
-  const { avatar } = myAvatar
-  avatarLinkInputElement.value = avatar
+  avatarLinkInputElement.value = myAvatar
 }
+const submitCallBackEditAvatar = (data) => {
+  newPopupEditAvatar.save()
+  api
+    .createNewAvatar(data)
+    .then((data) => {
+      newUserInfo.setUserInfo(data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      newPopupEditAvatar.saved()
+    })
+}
+const newPopupEditAvatar = new PopupWithForm(
+  avatarFormPopup,
+  submitCallBackEditAvatar,
+)
 
 const handleOpenProfileEditButton = () => {
   newPopupEditProfile.open()
@@ -55,11 +78,19 @@ const handleOpenProfileEditButton = () => {
   jobInputElement.value = about
 }
 
-const submitCallBackEditProfile = ({ name, about }) => {
-  api.setUser({ name, about }).then(({ name, about }) => {
-    // console.log({ name, about })
-    newUserInfo.setUserInfo({ name, about })
-  })
+const submitCallBackEditProfile = (data) => {
+  newPopupEditProfile.save()
+  api
+    .setUser(data)
+    .then((data) => {
+      newUserInfo.setUserInfo(data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      newPopupEditProfile.saved()
+    })
 }
 
 const newPopupEditProfile = new PopupWithForm(
@@ -67,37 +98,12 @@ const newPopupEditProfile = new PopupWithForm(
   submitCallBackEditProfile,
 )
 
-newPopupEditProfile.setEventListeners()
-
 const newImagePopup = new PopupWithImage(imagePopup)
 
 const handleCardClick = (evt) => {
   newImagePopup.open(evt)
 }
-newImagePopup.setEventListeners()
 
-//удаление карточки
-const submitCallBackDeleteCard = (cardId) => {
-  console.log(cardId)
-  api.deleteCard(cardId).then((data) => {
-    // card.delete(data)
-    console.log(data)
-  })
-}
-// //попап удаления карточки
-const newDeletePopup = new PopupWithDelete(
-  deleteCardPopup,
-  submitCallBackDeleteCard,
-)
-
-const openDeletePopup = (cardId) => {
-  newDeletePopup.open(cardId)
-  console.log(cardId)
-}
-
-newDeletePopup.setEventListeners()
-
-//функция открытие попапа добавления карточки по кнопке плюс
 const handleOpenAddCardButton = () => {
   newPopupAddCard.open()
   formAddElement.reset()
@@ -112,22 +118,28 @@ const defoultCardList = new Section(
   },
   '.card',
 )
-//получение массива карточек с cервера
+
 api.getAllCards().then((data) => {
-  // console.log(data)
+  data.reverse()
   defoultCardList.renderItems(data)
 })
 
-//колбек сабмит класса новой карточки из инпутов
 const submitCallBackFormAdd = ({ name, link }) => {
-  api.createNewCard({ name, link }).then((cardData) => {
-    const newCardElement = createCard(cardData)
-    console.log(cardData)
-    defoultCardList.addItem(newCardElement)
-  })
+  newPopupAddCard.save()
+  api
+    .createNewCard({ name, link })
+    .then((cardData) => {
+      const newCardElement = createCard(cardData)
+      defoultCardList.addItem(newCardElement)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      newPopupAddCard.saved()
+    })
 }
 
-// экземпляр карточки из класса Card
 const createCard = (cardData) => {
   const card = new Card(
     cardData,
@@ -137,7 +149,6 @@ const createCard = (cardData) => {
 
     {
       handleLikeCard: (cardId) => {
-        // console.log(id)
         api.likeCard(cardId).then((data) => {
           card.setLike(data)
           card.like()
@@ -146,7 +157,6 @@ const createCard = (cardData) => {
     },
     {
       handleDeleteLikeCard: (cardId) => {
-        // console.log(id)
         api.deleteLikeCard(cardId).then((data) => {
           card.setLike(data)
           card.deleteLike()
@@ -160,24 +170,43 @@ const createCard = (cardData) => {
   return cardElement
 }
 
-// экземпляр PopupWithForm попап добавления новой карточки
-//добавление слушателя
-const newPopupAddCard = new PopupWithForm(cardFormPopup, submitCallBackFormAdd)
-newPopupAddCard.setEventListeners()
+function submitCallBackDeleteCard(cardId, cardItem) {
+  api
+    .deleteCard(cardId, cardItem)
+    .then(() => {
+      cardItem.delete()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+const newDeletePopup = new PopupWithDelete(deleteCardPopup)
 
-//валидация всех попапов
-//экземпляр валидации попапа редактирования профиля
+const openDeletePopup = (cardId, cardItem) => {
+  newDeletePopup.setSubmit(() => submitCallBackDeleteCard(cardId, cardItem))
+  newDeletePopup.open()
+}
+
+const newPopupAddCard = new PopupWithForm(cardFormPopup, submitCallBackFormAdd)
+
 const formEditProfile = new FormValidator(
   validationConfig,
   profileFormPopupSelector,
 )
-//экземпляр валидации попапа добавления карточки
 const formAddCard = new FormValidator(validationConfig, cardFormPopup)
 
-//сама валидация форм
+const formEditAvatar = new FormValidator(validationConfig, avatarFormPopup)
+
 formEditProfile.enableValidation()
 formAddCard.enableValidation()
+formEditAvatar.enableValidation()
 
-//слушатели на клик
 editProfileButtonElement.addEventListener('click', handleOpenProfileEditButton)
 addCardButtonElement.addEventListener('click', handleOpenAddCardButton)
+editAvatarButtonElement.addEventListener('click', handleOpenAvatarEditButton)
+
+newPopupEditAvatar.setEventListeners()
+newPopupEditProfile.setEventListeners()
+newImagePopup.setEventListeners()
+newDeletePopup.setEventListeners()
+newPopupAddCard.setEventListeners()
