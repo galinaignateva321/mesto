@@ -43,7 +43,6 @@ export default class PopupWithForm extends Popup {
       // добавим вызов функции _handleFormSubmit
       // передадим ей объект — результат работы _getInputValues
       this.submitCallBack(this._getInputValues())
-      this.close()
     })
   }
 }

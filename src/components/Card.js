@@ -2,7 +2,7 @@ export default class Card {
   constructor(
     { name, link, _id, likes, owner },
     cardTemplate,
-    handleCardClick,
+    { handleCardClick },
     openDeletePopup,
     { handleLikeCard },
     { handleDeleteLikeCard },
@@ -65,8 +65,9 @@ export default class Card {
       this._handleLikeCardButton()
     })
 
-    this.photoCardElement.addEventListener('click', (evt) => {
-      this.handleCardClick(evt)
+    this.photoCardElement.addEventListener('click', () => {
+      this.handleCardClick(this._newCard)
+      // console.log(this._newCard)
     })
   }
 

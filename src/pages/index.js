@@ -4,6 +4,7 @@ import Section from '../components/Section.js'
 import UserInfo from '../components/UserInfo.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithDelete from '../components/PopupWithDelete.js'
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import {
@@ -20,10 +21,8 @@ import {
   avatarFormPopup,
   editAvatarButtonElement,
   avatarLinkInputElement,
-  avatarElement,
 } from '../utils/constants.js'
 import { data } from 'autoprefixer'
-import PopupWithDelete from '../components/PopupWithDelete.js'
 
 //запрос апи
 const apiOptions = {
@@ -32,6 +31,7 @@ const apiOptions = {
     'Content-Type': 'application/json',
     authorization: '0bb4e576-850a-4be4-9126-20bd411d5632',
   },
+  cohort: 'v1/cohort-76',
 }
 const api = new Api(apiOptions)
 
@@ -40,13 +40,9 @@ const newUserInfo = new UserInfo(
   '.profile__subtitle',
   '.profile__avatar',
 )
+
 let myAvatar
 let myID
-api.getUser().then((data) => {
-  newUserInfo.setUserInfo(data)
-  myID = data._id
-  myAvatar = data.avatar
-})
 
 const handleOpenAvatarEditButton = () => {
   newPopupEditAvatar.open()
@@ -65,6 +61,7 @@ const submitCallBackEditAvatar = (data) => {
     .finally(() => {
       newPopupEditAvatar.saved()
     })
+  newPopupEditAvatar.close()
 }
 const newPopupEditAvatar = new PopupWithForm(
   avatarFormPopup,
@@ -91,6 +88,7 @@ const submitCallBackEditProfile = (data) => {
     .finally(() => {
       newPopupEditProfile.saved()
     })
+  newPopupEditProfile.close()
 }
 
 const newPopupEditProfile = new PopupWithForm(
@@ -100,29 +98,20 @@ const newPopupEditProfile = new PopupWithForm(
 
 const newImagePopup = new PopupWithImage(imagePopup)
 
-const handleCardClick = (evt) => {
-  newImagePopup.open(evt)
-}
-
 const handleOpenAddCardButton = () => {
   newPopupAddCard.open()
-  formAddElement.reset()
   formAddCard.inactivePopupButton()
 }
 const defoultCardList = new Section(
   {
     renderer: (cardData) => {
-      const newCard = createCard(cardData)
-      defoultCardList.addItem(newCard)
+      const allCards = createCard(cardData)
+      defoultCardList.addItems(allCards)
     },
   },
+
   '.card',
 )
-
-api.getAllCards().then((data) => {
-  data.reverse()
-  defoultCardList.renderItems(data)
-})
 
 const submitCallBackFormAdd = ({ name, link }) => {
   newPopupAddCard.save()
@@ -138,13 +127,19 @@ const submitCallBackFormAdd = ({ name, link }) => {
     .finally(() => {
       newPopupAddCard.saved()
     })
+  newPopupAddCard.close()
 }
 
 const createCard = (cardData) => {
   const card = new Card(
     cardData,
     '.card__template',
-    handleCardClick,
+    {
+      handleCardClick: () => {
+        newImagePopup.open(cardData.link, cardData.name)
+        console.log(cardData.link, cardData.name)
+      },
+    },
     openDeletePopup,
 
     {
@@ -179,6 +174,7 @@ function submitCallBackDeleteCard(cardId, cardItem) {
     .catch((err) => {
       console.log(err)
     })
+  newDeletePopup.close()
 }
 const newDeletePopup = new PopupWithDelete(deleteCardPopup)
 
@@ -210,3 +206,14 @@ newPopupEditProfile.setEventListeners()
 newImagePopup.setEventListeners()
 newDeletePopup.setEventListeners()
 newPopupAddCard.setEventListeners()
+
+Promise.all([api.getUser(), api.getAllCards()])
+  .then(([data, cards]) => {
+    newUserInfo.setUserInfo(data)
+    myID = data._id
+    myAvatar = data.avatar
+    defoultCardList.renderItems(cards)
+  })
+  .catch((err) => {
+    console.log(err)
+  })

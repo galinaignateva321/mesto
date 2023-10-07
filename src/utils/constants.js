@@ -56,4 +56,3 @@ export const descriptionImagePopup = imagePopup.querySelector(
 //DOM узлы профиля из разметки
 export const nameElement = document.querySelector('.profile__title')
 export const jobElement = document.querySelector('.profile__subtitle')
-export const avatarElement = document.querySelector('.profile__avatar')
