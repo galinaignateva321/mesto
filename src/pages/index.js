@@ -48,21 +48,23 @@ const handleOpenAvatarEditButton = () => {
   newPopupEditAvatar.open()
   avatarLinkInputElement.value = myAvatar
 }
+
 const submitCallBackEditAvatar = (data) => {
   newPopupEditAvatar.save()
   api
     .createNewAvatar(data)
     .then((data) => {
       newUserInfo.setUserInfo(data)
+      newPopupEditAvatar.close()
     })
     .catch((err) => {
-      console.log(err)
+      console.log(`Ошибка.....: ${err}`)
     })
     .finally(() => {
       newPopupEditAvatar.saved()
     })
-  newPopupEditAvatar.close()
 }
+
 const newPopupEditAvatar = new PopupWithForm(
   avatarFormPopup,
   submitCallBackEditAvatar,
@@ -81,14 +83,14 @@ const submitCallBackEditProfile = (data) => {
     .setUser(data)
     .then((data) => {
       newUserInfo.setUserInfo(data)
+      newPopupEditProfile.close()
     })
     .catch((err) => {
-      console.log(err)
+      console.log(`Ошибка.....: ${err}`)
     })
     .finally(() => {
       newPopupEditProfile.saved()
     })
-  newPopupEditProfile.close()
 }
 
 const newPopupEditProfile = new PopupWithForm(
@@ -102,6 +104,7 @@ const handleOpenAddCardButton = () => {
   newPopupAddCard.open()
   formAddCard.inactivePopupButton()
 }
+
 const defoultCardList = new Section(
   {
     renderer: (cardData) => {
@@ -120,14 +123,14 @@ const submitCallBackFormAdd = ({ name, link }) => {
     .then((cardData) => {
       const newCardElement = createCard(cardData)
       defoultCardList.addItem(newCardElement)
+      newPopupAddCard.close()
     })
     .catch((err) => {
-      console.log(err)
+      console.log(`Ошибка.....: ${err}`)
     })
     .finally(() => {
       newPopupAddCard.saved()
     })
-  newPopupAddCard.close()
 }
 
 const createCard = (cardData) => {
@@ -144,21 +147,30 @@ const createCard = (cardData) => {
 
     {
       handleLikeCard: (cardId) => {
-        api.likeCard(cardId).then((data) => {
-          card.setLike(data)
-          card.like()
-        })
+        api
+          .likeCard(cardId)
+          .then((data) => {
+            card.setLike(data)
+            card.like()
+          })
+          .catch((err) => {
+            console.log(`Ошибка.....: ${err}`)
+          })
       },
     },
     {
       handleDeleteLikeCard: (cardId) => {
-        api.deleteLikeCard(cardId).then((data) => {
-          card.setLike(data)
-          card.deleteLike()
-        })
+        api
+          .deleteLikeCard(cardId)
+          .then((data) => {
+            card.setLike(data)
+            card.deleteLike()
+          })
+          .catch((err) => {
+            console.log(`Ошибка.....: ${err}`)
+          })
       },
     },
-
     myID,
   )
   const cardElement = card.generateCard()
@@ -170,12 +182,13 @@ function submitCallBackDeleteCard(cardId, cardItem) {
     .deleteCard(cardId, cardItem)
     .then(() => {
       cardItem.delete()
+      newDeletePopup.close()
     })
     .catch((err) => {
-      console.log(err)
+      console.log(`Ошибка.....: ${err}`)
     })
-  newDeletePopup.close()
 }
+
 const newDeletePopup = new PopupWithDelete(deleteCardPopup)
 
 const openDeletePopup = (cardId, cardItem) => {
@@ -189,6 +202,7 @@ const formEditProfile = new FormValidator(
   validationConfig,
   profileFormPopupSelector,
 )
+
 const formAddCard = new FormValidator(validationConfig, cardFormPopup)
 
 const formEditAvatar = new FormValidator(validationConfig, avatarFormPopup)
@@ -215,5 +229,5 @@ Promise.all([api.getUser(), api.getAllCards()])
     defoultCardList.renderItems(cards)
   })
   .catch((err) => {
-    console.log(err)
+    console.log(`Ошибка.....: ${err}`)
   })
